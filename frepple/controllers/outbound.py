@@ -773,7 +773,7 @@ class exporter(object):
                 quoteattr(name),
                 i["capacity"],
                 i["time_efficiency"],
-                quoteattr(self.mfg_location),
+                quoteattr(self.mfg_location or ''),
                 ("<owner name=%s/>" % quoteattr(owner[1])) if owner else "",
                 ("<available name=%s/>" % quoteattr(available[1])) if available else "",
             )

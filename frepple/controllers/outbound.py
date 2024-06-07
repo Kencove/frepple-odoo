@@ -659,9 +659,11 @@ class exporter(object):
         """
         self.map_customers = {}
         first = True
+        # why use is_company here? filters out most of our demand from actual customers
+        # use customer rank instead
         for i in self.generator.getData(
             "res.partner",
-            search=[("is_company", "=", True)],
+            search=[("customer_rank", ">", 0)],
             fields=["name"],
         ):
             if first:
@@ -685,7 +687,7 @@ class exporter(object):
         first = True
         for i in self.generator.getData(
             "res.partner",
-            search=[("is_company", "=", True)],
+            search=[("is_company", "=", True),("supplier_rank",">",0)],
             fields=["name"],
         ):
             if first:

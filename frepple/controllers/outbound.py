@@ -662,14 +662,16 @@ class exporter(object):
         for i in self.generator.getData(
             "res.partner",
             search=[("is_company", "=", True)],
-            fields=["name"],
+            fields=["name", "division_id"],
         ):
             if first:
                 yield "<!-- customers -->\n"
                 yield "<customers>\n"
                 first = False
             name = "%s %s" % (i["name"], i["id"])
-            yield "<customer name=%s/>\n" % quoteattr(name)
+            division = i["division_id"][1]
+            yield ("<customer name=%s category=%s />\n" %
+                quoteattr(name), division)
             self.map_customers[i["id"]] = name
         if not first:
             yield "</customers>\n"

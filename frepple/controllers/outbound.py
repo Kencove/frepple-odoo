@@ -685,6 +685,8 @@ class exporter(object):
         res.partner.id res.partner.name -> supplier.name
         """
         first = True
+        # included supplier_rank in the search filter
+        # missing before so will just
         for i in self.generator.getData(
             "res.partner",
             search=[("is_company", "=", True),("supplier_rank",">",0)],
